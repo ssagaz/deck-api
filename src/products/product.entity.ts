@@ -15,6 +15,12 @@ export class Product {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   value: number;
 
+  @Column({ default: true })
+  active: boolean;
+
+  @Column({ default: true })
+  enable_display: boolean;
+
   @OneToMany(() => OrderItem, (item) => item.product)
   orderItems: OrderItem[];
 
@@ -23,4 +29,5 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
 }
