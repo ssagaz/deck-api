@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { OrderItem } from '../orders/order-item.entity';
 
 @Entity()
 export class Product {
@@ -13,6 +14,9 @@ export class Product {
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   value: number;
+
+  @OneToMany(() => OrderItem, (item) => item.product)
+  orderItems: OrderItem[];
 
   @CreateDateColumn()
   createdAt: Date;
