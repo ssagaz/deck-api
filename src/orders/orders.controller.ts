@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, ParseIntPipe, Patch } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { OrderStatus } from './enum/order-status.enum';
+import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -22,12 +22,12 @@ export class OrdersController {
     return this.ordersService.findOne(id);
   }
 
-  @Patch(':id/status')
-  updateStatus(
+  @Patch(':id')
+  update(
     @Param('id', ParseIntPipe) id: number,
-    @Body('status') status: OrderStatus,
+    @Body() updateOrderDto: UpdateOrderDto,
   ) {
-    return this.ordersService.updateStatus(id, status);
+    return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')

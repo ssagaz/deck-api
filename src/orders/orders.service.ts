@@ -5,6 +5,7 @@ import { Order } from './order.entity';
 import { OrderItem } from './order-item.entity';
 import { Product } from '../products/product.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrderStatus } from './enum/order-status.enum';
 
 @Injectable()
@@ -76,13 +77,24 @@ export class OrdersService {
       where: { id },
       relations: ['items', 'items.product'],
     });
+
+    console.log(order)
+
     if (!order) {
       throw new NotFoundException(`Order with ID ${id} not found`);
     }
     return order;
   }
 
-  async updateStatus(id: number, status: OrderStatus): Promise<Order> {
+  async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    const { status } = updateOrderDto;
+
+    if (!Object.values(OrderStatus).includes(status)) {
+      throw new BadRequestException(
+        `Invalid status. Allowed values: ${Object.values(OrderStatus).join(', ')}`,
+      );
+    }
+
     const order = await this.findOne(id);
     order.status = status;
     return this.orderRepository.save(order);
