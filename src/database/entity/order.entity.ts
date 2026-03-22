@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { OrderStatus } from './enum/order-status.enum';
+import { OrderStatus } from '../../orders/enum/order-status.enum';
 import { OrderItem } from './order-item.entity';
 
 @Entity()

@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "name": "System Admin",
+        "username": "admin",
+        "email": "deckdelivery.business@gmail.com",
+        "blocked_access": false
+    }
+]
